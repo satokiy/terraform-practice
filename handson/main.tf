@@ -1,14 +1,9 @@
-terraform {
-  required_version = "1.4.6"
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "4.54.0"
-    }
-  }
+module "vpc" {
+  source = "./modules/vpc"
 }
 
-provider "aws" {
-    region = "ap-northeast-1"
+module "alb" {
+  source                     = "./modules/alb"
+  public_subnet_ids = module.vpc.public_subnet_ids
+  vpc_id            = module.vpc.vpc_id
 }
