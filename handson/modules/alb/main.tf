@@ -1,3 +1,6 @@
+###############
+# ALB
+###############
 resource "aws_lb" "main" {
   load_balancer_type = "application"
   name               = "handson-alb"
@@ -5,6 +8,9 @@ resource "aws_lb" "main" {
   subnets            = var.public_subnet_ids
 }
 
+###############
+# SG
+###############
 resource "aws_security_group" "alb" {
   name        = "handson-alb"
   description = "handson alb"
@@ -34,3 +40,21 @@ resource "aws_security_group_rule" "alb_http" {
   cidr_blocks = ["0.0.0.0/0"]
 }
 
+###############
+# ALB listener
+###############
+resource "aws_lb_listener" "main" {
+  port = "80"
+  protocol = "HTTP"
+
+  load_balancer_arn = aws_lb.main.arn
+
+  default_action {
+    type = "fixed-response"
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "Hello, World"
+      status_code  = "200"
+    }
+  }
+}
