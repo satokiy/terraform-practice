@@ -11,5 +11,5 @@ variable "alb_target_group_arn" {
 }
 
 variable "ecs_listener_rule" {
-    type = any
+  type = any
 }
