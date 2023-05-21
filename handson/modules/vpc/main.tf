@@ -90,7 +90,7 @@ resource "aws_eip" "nat_1a" {
 resource "aws_eip" "nat_1c" {
   vpc = true
   tags = {
-    Name = "handson-natgw-1d"
+    Name = "handson-natgw-1c"
   }
 
 }
