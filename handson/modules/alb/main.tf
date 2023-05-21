@@ -44,10 +44,10 @@ resource "aws_security_group_rule" "alb_http" {
 # target group
 ###############
 resource "aws_lb_target_group" "main" {
-  name = "handson-alb-tg"
-  vpc_id = var.vpc_id
-  port = 80
-  protocol = "HTTP"
+  name        = "handson-alb-tg"
+  vpc_id      = var.vpc_id
+  port        = 80
+  protocol    = "HTTP"
   target_type = "ip"
   health_check {
     port = 80
@@ -59,7 +59,7 @@ resource "aws_lb_target_group" "main" {
 # listener
 ###############
 resource "aws_lb_listener" "main" {
-  port = "80"
+  port     = "80"
   protocol = "HTTP"
 
   load_balancer_arn = aws_lb.main.arn
@@ -78,16 +78,16 @@ resource "aws_lb_listener" "main" {
 # listener rule
 ###############
 resource "aws_lb_listener_rule" "main" {
- listener_arn =  aws_lb_listener.main.arn
- priority = 1
- action {
-    type = "forward"
+  listener_arn = aws_lb_listener.main.arn
+  priority     = 1
+  action {
+    type             = "forward"
     target_group_arn = aws_lb_target_group.main.arn
- }
+  }
 
   condition {
-      path_pattern {
-        values = ["*"]  
-      } 
+    path_pattern {
+      values = ["*"]
+    }
   }
 }
